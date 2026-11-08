@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Googleカレンダーに追加 | The R.O.X＆GWO LIQUIDROOM</title>
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+  w[l]=w[l]||[];
+  w[l].push({
+    'gtm.start':new Date().getTime(),
+    event:'gtm.js'
+  });
+
+  var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),
+      dl=l!='dataLayer'?'&l='+l:'';
+
+  j.async=true;
+  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+
+  f.parentNode.insertBefore(j,f);
+
+})(window,document,'script','dataLayer','GTM-KHWWPP8W');
+</script>
+<!-- End Google Tag Manager -->
+<style>
+  body{margin:0;padding:40px 16px;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;background:#111;color:#eee;text-align:center;line-height:1.7}
+  h1{font-size:18px;margin:0 0 8px}
+  p{margin:8px 0;font-size:14px;color:#bbb}
+  a.btn{display:inline-block;margin-top:20px;padding:14px 24px;background:#fff;color:#111;border-radius:8px;text-decoration:none;font-weight:bold}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KHWWPP8W"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<h1>Googleカレンダーを開いています…</h1>
+<p>The R.O.X＆GWO ONE-MAN LIVE<br>2027年5月23日（日）LIQUIDROOM</p>
+<p>自動で切り替わらない場合は下のボタンを押してください。</p>
+<a class="btn" id="manual" href="https://calendar.google.com/calendar/">Googleカレンダーに追加</a>
+
+<script>
+(function () {
+  var EVENT = /*EVENT_DATA*/{
+  "text": "The R.O.X＆GWO ONE-MAN LIVE「ロックス！夢をみせてくれ！」LIQUIDROOM 17:00 Start",
+  "dates": "20270523T070000Z/20270523T110000Z",
+  "details": "The R.O.X＆GWO ONE-MAN LIVE\n「ロックス！夢をみせてくれ！」\n\n●日時\n2027年5月23日（日）\nOPEN 16:00\nSTART 17:00\n\n●Ticket\nスタンディング ¥4,000（税込）\n※ドリンク代別\n\n●出演\nThe R.O.X＆GWO\nO.A. The Folie Phantom\n\n●会場\nLIQUIDROOM\n東京都渋谷区東3-16-6\n\n●チケット\n・e＋\nhttps://eplus.jp/sf/detail/4536630001-P0030002P021001?P1=1221\n\n・ローソンチケット\nhttps://l-tike.com/order/?gLcode=74359\nLコード：74359\n\n・チケットぴあ\nhttps://t.pia.jp/pia/ticketInformation.do?eventCd=2634319&rlsCd=001&lotRlsCd=\n\n※未就学児入場不可",
+  "location": "LIQUIDROOM, 東京都渋谷区東3-16-6",
+  "ctz": "Asia/Tokyo"
+}/*END_EVENT_DATA*/;
+
+  var params = new URLSearchParams();
+  params.set('action', 'TEMPLATE');
+  params.set('text', EVENT.text);
+  params.set('dates', EVENT.dates);
+  params.set('details', EVENT.details);
+  params.set('location', EVENT.location);
+  params.set('ctz', EVENT.ctz);
+  var redirectUrl = 'https://calendar.google.com/calendar/render?' + params.toString();
+  document.getElementById('manual').href = redirectUrl;
+
+  // LINEアプリ内ブラウザでは外部ブラウザで開き直す（Googleログインが弾かれるため）。
+  // 計測は外部ブラウザ側で1回だけ行う。
+  if (/\bLine\//i.test(navigator.userAgent) && !/[?&]openExternalBrowser=1\b/.test(location.search)) {
+    location.replace(location.pathname + '?openExternalBrowser=1');
+    return;
+  }
+
+  var moved = false;
+  function redirect() {
+    if (moved) return;
+    moved = true;
+    window.location.replace(redirectUrl);
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'calendar_add',
+    calendar_type: 'google',
+    live_id: 'liquidroom_20270523',
+    eventCallback: redirect,
+    eventTimeout: 1000
+  });
+
+  // GTMが広告ブロック等で読み込まれない場合の保険
+  setTimeout(redirect, 1400);
+})();
+</script>
+</body>
+</html>

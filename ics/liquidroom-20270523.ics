@@ -1,0 +1,37 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The R.O.X & GWO//Calendar Event//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-TIMEZONE:Asia/Tokyo
+BEGIN:VTIMEZONE
+TZID:Asia/Tokyo
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0900
+TZOFFSETTO:+0900
+TZNAME:JST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:liquidroom_20270523@the-rox-69.com
+DTSTAMP:20261108T000000Z
+SEQUENCE:0
+DTSTART;TZID=Asia/Tokyo:20270523T160000
+DTEND;TZID=Asia/Tokyo:20270523T200000
+SUMMARY:The R.O.X＆GWO ONE-MAN LIVE「ロックス！夢をみせてくれ
+ ！」
+LOCATION:LIQUIDROOM\, 東京都渋谷区東3-16-6
+DESCRIPTION:The R.O.X＆GWO ONE-MAN LIVE\n「ロックス！夢をみせて
+ くれ！」\n\n●日時\n2027年5月23日（日）\nOPEN 16:00\nSTART 17
+ :00\n\n●Ticket\nスタンディング ¥4\,000（税込）\n※ドリン
+ ク代別\n\n●出演\nThe R.O.X＆GWO\nO.A. The Folie Phantom\n\n●会
+ 場\nLIQUIDROOM\n東京都渋谷区東3-16-6\n\n●チケット\n・e＋\n
+ https://eplus.jp/sf/detail/4536630001-P0030002P021001?P1=1221\n\n・ロー
+ ソンチケット\nhttps://l-tike.com/order/?gLcode=74359\nLコード：7
+ 4359\n\n・チケットぴあ\nhttps://t.pia.jp/pia/ticketInformation.do?e
+ ventCd=2634319&rlsCd=001&lotRlsCd=\n\n※未就学児入場不可
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
