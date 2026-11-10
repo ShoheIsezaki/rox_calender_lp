@@ -19,7 +19,7 @@
 ICS の内容を変えたら `scripts/build.js` の `SEQUENCE` を 1 増やし `DTSTAMP` を更新してください。
 
 ## QR コード
-`qr/` に生成済み（`https://rox-calender-lp.vercel.app` 前提）。実ドメインが異なる場合は再生成:
+`qr/` に生成済み（`https://rox-calender.vercel.app` 前提）。実ドメインが異なる場合は再生成:
 
 ```bash
 npm i --no-save qrcode@1.5.4 && node scripts/qr.js https://<実際のドメイン>
