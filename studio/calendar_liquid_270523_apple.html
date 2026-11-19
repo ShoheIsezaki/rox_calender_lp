@@ -1,0 +1,46 @@
+<script>
+(() => {
+  const measurementId = 'G-74GS8WPQZE';
+  const destination = 'https://rox-calender.vercel.app/ics/liquidroom-20270523.ics';
+  let redirected = false;
+
+  // LINEアプリ内ブラウザでは外部ブラウザで開き直す（UTMは維持）。
+  // 計測は開き直した側で1回だけ行う。
+  const params = new URLSearchParams(location.search);
+  if (/\bLine\//i.test(navigator.userAgent) && params.get('openExternalBrowser') !== '1') {
+    params.set('openExternalBrowser', '1');
+    location.replace(location.pathname + '?' + params.toString());
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () {
+    dataLayer.push(arguments);
+  };
+
+  const redirect = () => {
+    if (redirected) return;
+    redirected = true;
+    window.location.replace(destination);
+  };
+
+  // このページを新GA4で計測（UTMもこのpage_viewで記録される）
+  gtag('config', measurementId);
+
+  // GAが動作しない場合も最大5秒で転送
+  const fallback = setTimeout(redirect, 5000);
+
+  gtag('event', 'calendar_add_liquidroom_20270523_apple', {
+    send_to: measurementId,
+    calendar_type: 'apple',
+    live_id: 'liquidroom_20270523',
+    destination: 'apple_calendar',
+    transport_type: 'beacon',
+    event_callback: () => {
+      clearTimeout(fallback);
+      redirect();
+    },
+    event_timeout: 4000
+  });
+})();
+</script>

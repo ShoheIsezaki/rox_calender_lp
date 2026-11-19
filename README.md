@@ -1,5 +1,21 @@
 # The R.O.X＆GWO LIQUIDROOM 2027/05/23 カレンダー登録導線
 
+## 現行構成（STUDIO 中継 → Google カレンダー / Vercel 上の ICS）
+
+| 用途 | 入口（QR対象） | 転送先 | GA4イベント（G-74GS8WPQZE） |
+|---|---|---|---|
+| Google | `https://the-rox-69.com/go/calendar_liquid_270523_google` | Google カレンダー予定作成画面 | `calendar_add_liquidroom_20270523_google` |
+| Apple | `https://the-rox-69.com/go/calendar_liquid_270523_apple` | `https://rox-calender.vercel.app/ics/liquidroom-20270523.ics` | `calendar_add_liquidroom_20270523_apple` |
+
+- STUDIO に貼るカスタムコード: `studio/calendar_liquid_270523_google.html` / `studio/calendar_liquid_270523_apple.html`
+- 手動リンク先: `studio/manual_links.txt`
+- QR（UTM付き）: `qr/calendar-google.*` / `qr/calendar-apple.*`（`node scripts/qr-studio.js` で再生成）
+- `studio/` 内のファイルは `node scripts/build.js` で `scripts/event.js` から生成されます（直接編集しない）。
+
+以下は Vercel 側の旧入口（STUDIO 側の動作確認が終わるまで残す）。旧QRは `qr/legacy-vercel/`。
+
+---
+
 | 用途 | パス |
 |---|---|
 | Google カレンダー（QR対象） | `/liquidroom/google/` |
@@ -19,7 +35,7 @@
 ICS の内容を変えたら `scripts/build.js` の `SEQUENCE` を 1 増やし `DTSTAMP` を更新してください。
 
 ## QR コード
-`qr/` に生成済み（`https://rox-calender.vercel.app` 前提）。実ドメインが異なる場合は再生成:
+`qr/legacy-vercel/` に生成済み（`https://rox-calender.vercel.app` 前提）。実ドメインが異なる場合は再生成:
 
 ```bash
 npm i --no-save qrcode@1.5.4 && node scripts/qr.js https://<実際のドメイン>

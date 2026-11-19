@@ -91,4 +91,83 @@ if (!re.test(html)) throw new Error('EVENT_DATA marker not found in google/index
 const json = JSON.stringify(data, null, 2).replace(/</g, '\\u003c');
 fs.writeFileSync(htmlPath, html.replace(re, `$1${json}$2`));
 
-console.log('generated ics/liquidroom-20270523.ics and synced liquidroom/google/index.html');
+
+// ---- STUDIO 用カスタムコード ----
+const gparams = new URLSearchParams();
+gparams.set('action', 'TEMPLATE');
+gparams.set('text', data.text);
+gparams.set('dates', data.dates);
+gparams.set('details', data.details);
+gparams.set('location', data.location);
+gparams.set('ctz', data.ctz);
+const googleUrl = 'https://calendar.google.com/calendar/render?' + gparams.toString();
+
+function studioSnippet({ eventName, destination, destinationLabel, calendarType }) {
+  return `<script>
+(() => {
+  const measurementId = '${ev.GA4_ID}';
+  const destination = '${destination}';
+  let redirected = false;
+
+  // LINEアプリ内ブラウザでは外部ブラウザで開き直す（UTMは維持）。
+  // 計測は開き直した側で1回だけ行う。
+  const params = new URLSearchParams(location.search);
+  if (/\\bLine\\//i.test(navigator.userAgent) && params.get('openExternalBrowser') !== '1') {
+    params.set('openExternalBrowser', '1');
+    location.replace(location.pathname + '?' + params.toString());
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () {
+    dataLayer.push(arguments);
+  };
+
+  const redirect = () => {
+    if (redirected) return;
+    redirected = true;
+    window.location.replace(destination);
+  };
+
+  // このページを新GA4で計測（UTMもこのpage_viewで記録される）
+  gtag('config', measurementId);
+
+  // GAが動作しない場合も最大5秒で転送
+  const fallback = setTimeout(redirect, 5000);
+
+  gtag('event', '${eventName}', {
+    send_to: measurementId,
+    calendar_type: '${calendarType}',
+    live_id: '${ev.LIVE_ID}',
+    destination: '${destinationLabel}',
+    transport_type: 'beacon',
+    event_callback: () => {
+      clearTimeout(fallback);
+      redirect();
+    },
+    event_timeout: 4000
+  });
+})();
+</script>
+`;
+}
+
+const studioDir = path.join(root, 'studio');
+fs.mkdirSync(studioDir, { recursive: true });
+fs.writeFileSync(path.join(studioDir, 'calendar_liquid_270523_google.html'), studioSnippet({
+  eventName: 'calendar_add_liquidroom_20270523_google',
+  destination: googleUrl,
+  destinationLabel: 'google_calendar',
+  calendarType: 'google',
+}));
+fs.writeFileSync(path.join(studioDir, 'calendar_liquid_270523_apple.html'), studioSnippet({
+  eventName: 'calendar_add_liquidroom_20270523_apple',
+  destination: ev.ICS_URL,
+  destinationLabel: 'apple_calendar',
+  calendarType: 'apple',
+}));
+fs.writeFileSync(path.join(studioDir, 'manual_links.txt'),
+  '# 自動転送されない場合の手動リンク先（STUDIOのボタンのリンクに設定）\n\n' +
+  '## Google\n' + googleUrl + '\n\n## Apple\n' + ev.ICS_URL + '\n');
+
+console.log('generated ics, synced liquidroom/google/index.html, wrote studio/*');

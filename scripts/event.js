@@ -52,4 +52,7 @@ module.exports = {
   END_UTC: '20270523T110000Z',
   TZ: 'Asia/Tokyo',
   DETAILS,
+  // ICSを配信しているVercel本番ドメイン（STUDIOのApple用ページの転送先）
+  ICS_URL: 'https://rox-calender.vercel.app/ics/liquidroom-20270523.ics',
+  GA4_ID: 'G-74GS8WPQZE',
 };
