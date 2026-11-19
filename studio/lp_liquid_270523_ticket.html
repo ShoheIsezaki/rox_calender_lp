@@ -1,0 +1,46 @@
+<script>
+(() => {
+  const measurementId = 'G-74GS8WPQZE';
+  const destination = 'https://www.red-hot.ne.jp/play/detail.php?pid=py28624';
+  let redirected = false;
+
+  // utm_content ごとにイベント名を分ける。
+  // 一覧にないもの（UTMなし・SNS等）は従来のイベント名のまま。
+  const eventNames = {
+    poster: 'ticket_redirect_liquidroom_20270523_poster',
+    businesscard_ticket: 'ticket_redirect_liquidroom_20270523_businesscard'
+  };
+  const content = new URLSearchParams(location.search).get('utm_content') || '';
+  const eventName = eventNames[content] || 'ticket_redirect_liquidroom_20270523';
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () {
+    dataLayer.push(arguments);
+  };
+
+  const redirect = () => {
+    if (redirected) return;
+    redirected = true;
+    window.location.replace(destination);
+  };
+
+  // このページを新GA4で計測
+  gtag('config', measurementId);
+
+  // GAが動作しない場合も最大5秒で転送
+  const fallback = setTimeout(redirect, 5000);
+
+  gtag('event', eventName, {
+    send_to: measurementId,
+    destination: 'red_hot',
+    entry_point: content || 'direct',
+    live_id: 'liquidroom_20270523',
+    transport_type: 'beacon',
+    event_callback: () => {
+      clearTimeout(fallback);
+      redirect();
+    },
+    event_timeout: 4000
+  });
+})();
+</script>
